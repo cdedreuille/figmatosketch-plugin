@@ -1,0 +1,7 @@
+{
+  "name": "Figma to Sketch",
+  "id": "782237798549001999",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}
