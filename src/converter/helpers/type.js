@@ -1,5 +1,5 @@
 module.exports = function (type) {
-  if (type === "CANVAS") {
+  if (type === "PAGE") {
     return "page";
   } else if (type === "FRAME") {
     return "artboard";

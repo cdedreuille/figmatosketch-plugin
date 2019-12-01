@@ -47,14 +47,17 @@ const transform = (data, parent = {}) => {
   result.hasClippingMask = false;
   result.style = setStyle(data);
 
-  // Are we still gonna have this data type?
-  if (data.type !== 'CANVAS') {
-    // Talk to Charles
-    //const newPosition = position(parent, data);
-    // result.frame.x = newPosition.x;
-    // result.frame.y = newPosition.y;
-    // result.frame.height = data.absoluteBoundingBox.height;
-    // result.frame.width =  data.absoluteBoundingBox.width;
+  console.log(data);
+
+  // This is to update the position to be relative and not absolute.
+  // Sketch uses relative position to its parent.
+  // Page is the top level so obviously doesn't need this code
+  if (data.type !== 'PAGE') {
+    const newPosition = position(parent, data);
+    result.frame.x = newPosition.x;
+    result.frame.y = newPosition.y;
+    result.frame.height = data.height;
+    result.frame.width =  data.width;
   }
 
   // This is where the magic happen - Recursion to create all the layers.
@@ -62,37 +65,40 @@ const transform = (data, parent = {}) => {
     result.layers = data.children.map(child => transform(child, data));
   }
 
+
+  // Each case need to be updated using Figma plugin API.
+  // The structure isn't the same as the REST API
   switch(data.type) {
-    case 'CANVAS':
+    case 'PAGE':
       canvas(data, result);
       break;
     case 'FRAME':
       frame(data, result);
       break;
-    case 'GROUP':
-      group(data, result);
-      break;
-    case 'COMPONENT':
-      component(data, result);
-      break;
-    case 'INSTANCE':
-      instance(data, result);
-      break;
-    case 'RECTANGLE':
-      rectangle(data, result);
-      break;
-    case 'ELLIPSE':
-      ellipse(data, result);
-      break;
-    case 'REGULAR_POLYGON':
-      triangle(data, result);
-      break;
-    case 'VECTOR':
-      vector(data, result);
-      break;
-    case 'TEXT':
-      text(data, result);
-      break;
+  //   case 'GROUP':
+  //     group(data, result);
+  //     break;
+  //   case 'COMPONENT':
+  //     component(data, result);
+  //     break;
+  //   case 'INSTANCE':
+  //     instance(data, result);
+  //     break;
+  //   case 'RECTANGLE':
+  //     rectangle(data, result);
+  //     break;
+  //   case 'ELLIPSE':
+  //     ellipse(data, result);
+  //     break;
+  //   case 'REGULAR_POLYGON':
+  //     triangle(data, result);
+  //     break;
+  //   case 'VECTOR':
+  //     vector(data, result);
+  //     break;
+  //   case 'TEXT':
+  //     text(data, result);
+  //     break;
   }
 
   return result;
