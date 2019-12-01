@@ -65,7 +65,6 @@ const transform = (data, parent = {}) => {
     result.layers = data.children.map(child => transform(child, data));
   }
 
-
   // Each case need to be updated using Figma plugin API.
   // The structure isn't the same as the REST API
   switch(data.type) {
@@ -75,9 +74,9 @@ const transform = (data, parent = {}) => {
     case 'FRAME':
       frame(data, result);
       break;
-  //   case 'GROUP':
-  //     group(data, result);
-  //     break;
+    case 'GROUP':
+      group(data, result);
+      break;
   //   case 'COMPONENT':
   //     component(data, result);
   //     break;
