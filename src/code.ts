@@ -5,10 +5,10 @@ figma.showUI(__html__);
 figma.ui.onmessage = msg => {
   switch (msg.type) {
     case 'convert':
-      const pages = figma.root.children;
-      const pagesJson = pages.map(page => transformer(page));
+      const figmaPages = figma.root.children;
+      const sketchPages = figmaPages.map(page => transformer(page));
 
-      figma.ui.postMessage(pagesJson);
+      figma.ui.postMessage({ figmaPages, sketchPages });
       break;
     case 'download':
       figma.closePlugin();

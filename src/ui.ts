@@ -7,17 +7,17 @@ document.getElementById('convert').onclick = () => {
 };
 
 onmessage = async event => {
-  const pagesJson = event.data.pluginMessage;
+  const { sketchPages, figmaPages } = event.data.pluginMessage;
   const zip = new JSZip();
-  const docJson = generic.docFile(pagesJson);
-  const metaJson = generic.metaFile(pagesJson);
-  const userJson = generic.userFile(pagesJson);
+  const docJson = generic.docFile(figmaPages);
+  const metaJson = generic.metaFile(figmaPages);
+  const userJson = generic.userFile(figmaPages);
 
   zip.file('document.json', JSON.stringify(docJson, null, 2));
   zip.file('meta.json', JSON.stringify(metaJson, null, 2));
   zip.file('user.json', JSON.stringify(userJson, null, 2));
 
-  pagesJson.forEach(page =>
+  sketchPages.forEach(page =>
     zip.file(`pages/${page.name}.json`, JSON.stringify(page, null, 2)),
   );
 
