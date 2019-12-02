@@ -1,25 +1,36 @@
+import generic from './converter/generic';
+
 declare function JSZip(): void;
 
 document.getElementById('convert').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'convert' } }, '*')
-}
+  parent.postMessage({ pluginMessage: { type: 'convert' } }, '*');
+};
 
-onmessage = async (event) => {
-    // only do all of this stuff if the event is of type "transformed or something"
-    console.log("Need to save this as a sketch file", event.data.pluginMessage);
-    console.log(event);
-    const pageJson = event.data.pluginMessage;
-    const zip = new JSZip();
+onmessage = async event => {
+  const pagesJson = event.data.pluginMessage;
+  const zip = new JSZip();
+  const docJson = generic.docFile(pagesJson);
+  const metaJson = generic.metaFile(pagesJson);
+  const userJson = generic.userFile(pagesJson);
 
-    for (let i = 0; i < 5; i++) {
-        const txt = 'hello';
-        zip.file("file" + i + ".txt", txt);
-    }
-    const content = await zip.generateAsync({
-        type: "base64"
-    });
+  zip.file('document.json', JSON.stringify(docJson, null, 2));
+  zip.file('meta.json', JSON.stringify(metaJson, null, 2));
+  zip.file('user.json', JSON.stringify(userJson, null, 2));
 
-    window.location.href = "data:application/zip;base64," + content;
+  pagesJson.forEach(page =>
+    zip.file(`pages/${page.name}.json`, JSON.stringify(page, null, 2)),
+  );
 
-   // parent.postMessage({ pluginMessage: { type: 'download' } }, '*');
-}
+  const content = await zip.generateAsync({
+    type: 'base64',
+    compressionOptions: {
+      level: 9,
+    },
+  });
+
+  const downloadLink = <HTMLAnchorElement>document.getElementById('download');
+  downloadLink.download = 'test.sketch';
+  downloadLink.href = 'data:application/zip;base65,' + content;
+
+  // parent.postMessage({ pluginMessage: { type: 'download' } }, '*');
+};
