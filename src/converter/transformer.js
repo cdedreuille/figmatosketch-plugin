@@ -95,9 +95,9 @@ const transform = (data, parent = {}) => {
     case 'VECTOR':
       vector(data, result);
       break;
-  //   case 'TEXT':
-  //     text(data, result);
-  //     break;
+    case 'TEXT':
+      text(data, result);
+      break;
   }
 
   return result;

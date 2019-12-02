@@ -6,7 +6,7 @@ module.exports = function (data, result) {
   const color = {};
   for (let i in data.fills) {
     if(data.fills[i].type === 'SOLID') {
-      color.a = data.fills[i].color.a;
+      color.a = data.fills[i].opacity;
       color.b = data.fills[i].color.b;
       color.g = data.fills[i].color.g;
       color.r = data.fills[i].color.r;
@@ -25,20 +25,20 @@ module.exports = function (data, result) {
       "MSAttributedStringFontAttribute": {
         "_class": "UIFontDescriptor",
         "attributes": {
-          "name": data.style.fontPostScriptName,
-          "size": data.style.fontSize
+          "name": data.fontName.family,
+          "size": data.fontSize
         }
       },
       "textStyleVerticalAlignmentKey": 0,
       "paragraphStyle": {
         "_class": "paragraphStyle",
-        "maximumLineHeight": data.style.lineHeightPx,
-        "minimumLineHeight": data.style.lineHeightPx,
-        "alignment": textAlignement(data.style.textAlignHorizontal)
+        "maximumLineHeight": data.lineHeight.value,
+        "minimumLineHeight": data.lineHeight.value,
+        "alignment": textAlignement(data.textAlignHorizontal)
       },
-      "kerning": data.style.letterSpacing
+      "kerning": data.letterSpacing.value
     },
-    "verticalAlignment": textVerticalAlignement(data.style.textAlignVertical)
+    "verticalAlignment": textVerticalAlignement(data.textAlignVertical)
   };
   result.attributedString = {
     "_class": "attributedString",
@@ -51,8 +51,8 @@ module.exports = function (data, result) {
         "MSAttributedStringFontAttribute": {
           "_class": "UIFontDescriptor",
           "attributes": {
-            "name": data.style.fontPostScriptName,
-            "size": data.style.fontSize
+            "name": data.fontName.family,
+            "size": data.fontSize
           }
         },
         "MSAttributedStringColorAttribute": {
@@ -64,15 +64,15 @@ module.exports = function (data, result) {
         },
         "paragraphStyle": {
           "_class": "paragraphStyle",
-          "alignment": textAlignement(data.style.textAlignHorizontal)
+          "alignment": textAlignement(data.textAlignHorizontal)
         }
       }
     }]
   };
 
-  if (data.style.textCase) {
+  if (data.textCase) {
     result.style.textStyle.encodedAttributes.MSAttributedStringTextTransformAttribute = 1;
-    result.attributedString.attributes[0].attributes.MSAttributedStringTextTransformAttribute = textCase(data.style.textCase);
+    result.attributedString.attributes[0].attributes.MSAttributedStringTextTransformAttribute = textCase(data.textCase);
   }
 
   result.automaticallyDrawOnUnderlyingPath = false;
