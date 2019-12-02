@@ -40,7 +40,7 @@ module.exports = function (data) {
       if (border.type === 'SOLID') {
         color = {
           "_class": "color",
-          "alpha": border.color.a,
+          "alpha": border.opacity,
           "blue": border.color.b,
           "green": border.color.g,
           "red": border.color.r
@@ -89,7 +89,7 @@ module.exports = function (data) {
           "isEnabled": true,
           "color": {
             "_class": "color",
-            "alpha": fill.color.a,
+            "alpha": fill.opacity,
             "blue": fill.color.b,
             "green": fill.color.g,
             "red": fill.color.r
