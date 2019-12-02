@@ -30,7 +30,7 @@ onmessage = async event => {
 
   const downloadLink = <HTMLAnchorElement>document.getElementById('download');
   downloadLink.download = 'test.sketch';
-  downloadLink.href = 'data:application/zip;base65,' + content;
+  downloadLink.href = 'data:application/zip;base64,' + content;
 
   // parent.postMessage({ pluginMessage: { type: 'download' } }, '*');
 };
