@@ -17,8 +17,8 @@ onmessage = async event => {
   zip.file('meta.json', JSON.stringify(metaJson, null, 2));
   zip.file('user.json', JSON.stringify(userJson, null, 2));
 
-  sketchPages.forEach(page =>
-    zip.file(`pages/${page.name}.json`, JSON.stringify(page, null, 2)),
+  figmaPages.forEach((page, i) =>
+    zip.file(`pages/${page.id}.json`, JSON.stringify(sketchPages[i], null, 2)),
   );
 
   const content = await zip.generateAsync({
