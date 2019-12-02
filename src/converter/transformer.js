@@ -54,8 +54,8 @@ const transform = (data, parent = {}) => {
   // Page is the top level so obviously doesn't need this code
   if (data.type !== 'PAGE') {
     const newPosition = position(parent, data);
-    result.frame.x = newPosition.x;
-    result.frame.y = newPosition.y;
+    result.frame.x = data.x;
+    result.frame.y = data.y;
     result.frame.height = data.height;
     result.frame.width =  data.width;
   }
@@ -83,18 +83,18 @@ const transform = (data, parent = {}) => {
   //   case 'INSTANCE':
   //     instance(data, result);
   //     break;
-  //   case 'RECTANGLE':
-  //     rectangle(data, result);
-  //     break;
-  //   case 'ELLIPSE':
-  //     ellipse(data, result);
-  //     break;
-  //   case 'REGULAR_POLYGON':
-  //     triangle(data, result);
-  //     break;
-  //   case 'VECTOR':
-  //     vector(data, result);
-  //     break;
+    case 'RECTANGLE':
+      rectangle(data, result);
+      break;
+    case 'ELLIPSE':
+      ellipse(data, result);
+      break;
+    case 'REGULAR_POLYGON':
+      triangle(data, result);
+      break;
+    case 'VECTOR':
+      vector(data, result);
+      break;
   //   case 'TEXT':
   //     text(data, result);
   //     break;
