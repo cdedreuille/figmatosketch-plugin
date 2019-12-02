@@ -2,7 +2,7 @@ import generic from './converter/generic';
 
 declare function JSZip(): void;
 
-document.getElementById('convert').onclick = () => {
+window.onload = () => {
   parent.postMessage({ pluginMessage: { type: 'convert' } }, '*');
 };
 
