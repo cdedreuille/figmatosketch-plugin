@@ -77,12 +77,12 @@ const transform = (data, parent = {}) => {
     case 'GROUP':
       group(data, result);
       break;
-  //   case 'COMPONENT':
-  //     component(data, result);
-  //     break;
-  //   case 'INSTANCE':
-  //     instance(data, result);
-  //     break;
+    case 'COMPONENT':
+      component(data, result);
+      break;
+    case 'INSTANCE':
+      instance(data, result);
+      break;
     case 'RECTANGLE':
       rectangle(data, result);
       break;
@@ -92,9 +92,9 @@ const transform = (data, parent = {}) => {
     case 'REGULAR_POLYGON':
       triangle(data, result);
       break;
-    case 'VECTOR':
-      vector(data, result);
-      break;
+    // case 'VECTOR':
+    //   vector(data, result);
+    //   break;
     case 'TEXT':
       text(data, result);
       break;
