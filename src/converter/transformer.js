@@ -47,7 +47,7 @@ const transform = (data, parent = {}) => {
   result.hasClippingMask = false;
   result.style = setStyle(data);
 
-  console.log(data);
+  // console.log(data);
 
   // This is to update the position to be relative and not absolute.
   // Sketch uses relative position to its parent.
@@ -77,12 +77,12 @@ const transform = (data, parent = {}) => {
     case 'GROUP':
       group(data, result);
       break;
-    // case 'COMPONENT':
-    //   component(data, result);
-    //   break;
-    // case 'INSTANCE':
-    //   instance(data, result);
-    //   break;
+    case 'COMPONENT':
+      component(data, result);
+      break;
+    case 'INSTANCE':
+      instance(data, result);
+      break;
     case 'RECTANGLE':
       rectangle(data, result);
       break;
