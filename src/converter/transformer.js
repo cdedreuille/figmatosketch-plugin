@@ -92,9 +92,9 @@ const transform = (data, parent = {}) => {
     case 'REGULAR_POLYGON':
       triangle(data, result);
       break;
-    // case 'VECTOR':
-    //   vector(data, result);
-    //   break;
+    case 'VECTOR':
+      vector(data, result);
+      break;
     case 'TEXT':
       text(data, result);
       break;
