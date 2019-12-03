@@ -77,12 +77,12 @@ const transform = (data, parent = {}) => {
     case 'GROUP':
       group(data, result);
       break;
-    case 'COMPONENT':
-      component(data, result);
-      break;
-    case 'INSTANCE':
-      instance(data, result);
-      break;
+    // case 'COMPONENT':
+    //   component(data, result);
+    //   break;
+    // case 'INSTANCE':
+    //   instance(data, result);
+    //   break;
     case 'RECTANGLE':
       rectangle(data, result);
       break;
