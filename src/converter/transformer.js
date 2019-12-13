@@ -12,6 +12,8 @@ const ellipse = require('./shapes/ellipse');
 const vector = require('./shapes/vector');
 const text = require('./text/index');
 
+let imageFiles = [];
+
 const transform = (data, parent = {}) => {
   const result = {
     _class: type(data.type),
@@ -42,7 +44,7 @@ const transform = (data, parent = {}) => {
     shouldBreakMaskChain: false,
     clippingMaskMode: 0,
     hasClippingMask: false,
-    style: setStyle(data),
+    style: setStyle(data, imageFiles),
   };
 
   if (data.type !== 'PAGE') {
@@ -93,4 +95,4 @@ const transform = (data, parent = {}) => {
   return result;
 };
 
-module.exports = transform;
+export { transform, imageFiles as images };

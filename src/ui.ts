@@ -14,7 +14,12 @@ onmessage = async event => {
 
   switch (message.type) {
     case PAGES_CONVERTED:
-      const { sketchPages, figmaPages } = message.payload;
+      const {
+        sketchPages,
+        figmaPages,
+        imageBytes,
+        imageNames,
+      } = message.payload;
 
       const zip = new JSZip();
       const docJson = generic.docFile(figmaPages);
@@ -31,6 +36,10 @@ onmessage = async event => {
           JSON.stringify(sketchPages[i], null, 2),
         ),
       );
+
+      imageBytes.forEach((image, i) => {
+        zip.file(`images/${imageNames[i]}.png`, image);
+      });
 
       const content = await zip.generateAsync({
         type: 'base64',
