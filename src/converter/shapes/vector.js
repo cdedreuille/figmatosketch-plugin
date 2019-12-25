@@ -2,10 +2,14 @@ module.exports = function (data, result) {
   const newPath = [];
   const objWidth = data.width;
   const objHeight = data.height;
+  let segments = data.vectorNetwork.segments;
+  let vertices = data.vectorNetwork.vertices;
 
-  // console.log(data.vectorNetwork);
+  if(vertices.length !== segments.length) {
+    vertices = vertices.slice(0,vertices.length - 1);
+  }
 
-  data.vectorNetwork.vertices.map((vertice, key) => {
+  vertices.map((vertice, key) => {
     const segment = data.vectorNetwork.segments[key];
     const thing = data.vectorNetwork.segments.find(item => {
       return item.start === key;
