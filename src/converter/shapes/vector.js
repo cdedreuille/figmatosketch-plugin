@@ -5,13 +5,8 @@ module.exports = function (data, result) {
   const segments = data.vectorNetwork.segments;
   let vertices = data.vectorNetwork.vertices;
 
-  console.log(vertices);
-
-  // Faraz - Problem here. I don't know why but it blocks when I try to do anything on vertices.
-  // Check this doc: https://www.figma.com/file/6xCBaLyNHjny5mF5zaxwUE/Abracadabra-Not-working?node-id=0%3A1
   if(vertices.length !== segments.length) {
-    // let popped = vertices.pop();
-    // console.log(vertices);
+    vertices = vertices.slice(0,vertices.length - 1);
   }
 
   vertices.map((vertice, key) => {
