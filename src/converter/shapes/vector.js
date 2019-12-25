@@ -2,10 +2,19 @@ module.exports = function (data, result) {
   const newPath = [];
   const objWidth = data.width;
   const objHeight = data.height;
+  const segments = data.vectorNetwork.segments;
+  let vertices = data.vectorNetwork.vertices;
 
-  // console.log(data.vectorNetwork);
+  console.log(vertices);
 
-  data.vectorNetwork.vertices.map((vertice, key) => {
+  // Faraz - Problem here. I don't know why but it blocks when I try to do anything on vertices.
+  // Check this doc: https://www.figma.com/file/6xCBaLyNHjny5mF5zaxwUE/Abracadabra-Not-working?node-id=0%3A1
+  if(vertices.length !== segments.length) {
+    // let popped = vertices.pop();
+    // console.log(vertices);
+  }
+
+  vertices.map((vertice, key) => {
     const segment = data.vectorNetwork.segments[key];
     const thing = data.vectorNetwork.segments.find(item => {
       return item.start === key;
@@ -56,8 +65,6 @@ module.exports = function (data, result) {
 
     newPath.push(boom);
   });
-
-  // console.log(newPath);
 
   result.edited = true;
   result.isClosed = true;
