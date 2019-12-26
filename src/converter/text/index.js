@@ -3,6 +3,7 @@ const textVerticalAlignement = require('./_verticalAlignement');
 const textCase = require('./_textCase');
 
 module.exports = function (data, result) {
+  console.log(data);
   const color = {};
   for (let i in data.fills) {
     if(data.fills[i].type === 'SOLID') {
@@ -12,6 +13,7 @@ module.exports = function (data, result) {
       color.r = data.fills[i].color.r;
     }
   }
+
   result.style.textStyle = {
     "_class": "textStyle",
     "encodedAttributes": {
@@ -25,10 +27,11 @@ module.exports = function (data, result) {
       "MSAttributedStringFontAttribute": {
         "_class": "UIFontDescriptor",
         "attributes": {
-          "name": typeof data.fontName !== "symbol" ? data.fontName.family : '',
+          "name": typeof data.fontName !== "symbol" ? `${data.fontName.family.replace(/\s+/g, '')}-${data.fontName.style}` : 'Arial',
           "size": typeof data.fontSize !== "symbol" ? data.fontSize : 15
         }
       },
+      "MSAttributedStringTextTransformAttribute": 1,
       "textStyleVerticalAlignmentKey": 0,
       "paragraphStyle": {
         "_class": "paragraphStyle",
@@ -51,7 +54,7 @@ module.exports = function (data, result) {
         "MSAttributedStringFontAttribute": {
           "_class": "UIFontDescriptor",
           "attributes": {
-            "name": typeof data.fontName !== "symbol" ? data.fontName.family : '',
+            "name": typeof data.fontName !== "symbol" ? `${data.fontName.family.replace(/\s+/g, '')}-${data.fontName.style}` : 'Arial',
             "size": typeof data.fontSize !== "symbol" ? data.fontSize : 15
           }
         },
@@ -62,6 +65,7 @@ module.exports = function (data, result) {
           "green": color.g,
           "red": color.r
         },
+        "MSAttributedStringTextTransformAttribute": textCase(data.textCase),
         "paragraphStyle": {
           "_class": "paragraphStyle",
           "alignment": textAlignement(data.textAlignHorizontal)
@@ -69,11 +73,6 @@ module.exports = function (data, result) {
       }
     }]
   };
-
-  if (data.textCase) {
-    result.style.textStyle.encodedAttributes.MSAttributedStringTextTransformAttribute = 1;
-    result.attributedString.attributes[0].attributes.MSAttributedStringTextTransformAttribute = textCase(data.textCase);
-  }
 
   result.automaticallyDrawOnUnderlyingPath = false;
   result.dontSynchroniseWithSymbol = false;
